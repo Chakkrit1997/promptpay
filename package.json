@@ -1,0 +1,15 @@
+{
+  "name": "promptpay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ppqr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.2.1",
+    "promptpay-qr": "^0.4.4"
+  }
+}
