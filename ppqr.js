@@ -1,13 +1,12 @@
-
 const generatePayload = require('promptpay-qr')
 //const qrcode = require('qrcode') 
 //const fs = require('fs') 
 
 const mobileNumber = '095-908-7752'
 //const IDCardNumber = '0-0000-00000-00-0'
-const amount = 10
-const payload = generatePayload(mobileNumber, { amount }) //First parameter : mobileNumber || IDCardNumber
-console.log(payload)
+//var amount = 10
+//const payload = generatePayload(mobileNumber, { amount }) //First parameter : mobileNumber || IDCardNumber
+//console.log(payload)
 
 /*
 // Convert to SVG QR Code
@@ -19,8 +18,8 @@ qrcode.toString(payload, options, (err, svg) => {
 })
 */
 
-var mqtt = require('mqtt');
 
+var mqtt = require('mqtt');
 const MQTT_SERVER = "soldier.cloudmqtt.com";
 const MQTT_PORT = "11970";
 //if your server don't have username and password let blank.
@@ -38,7 +37,7 @@ var client = mqtt.connect({
 client.on('connect', function () {
     // Subscribe any topic
     console.log("MQTT Connect");
-    client.subscribe('/NodeMCU', function (err) {
+    client.subscribe('/NodeMCU/cost', function (err) {
         if (err) {
             console.log(err);
         }
@@ -46,11 +45,26 @@ client.on('connect', function () {
 });
 
 // Receive Message and print on terminal
-client.on('message', function (topic, message) {
+client.on('message', function (topic, message, packet) {
+
     // message is Buffer
-    console.log(message.toString());
+    //if (topic == "/NodeMCU/cost") {
+    console.log(topic);
+    var amount = parseInt(message.toString());
+    console.log(amount);
+    //console.log(typeof({amount}));
+    let payload = generatePayload(mobileNumber, { amount })
+    console.log(payload);
+    client.publish("/server/qrtext", payload);
+    //}
+
 });
 
 /*setInterval(() => {
     client.publish("test", "hello from NodeJS");
 }, 5000);*/
+
+
+
+var dateeee = new Date();
+console.log(dateeee);
