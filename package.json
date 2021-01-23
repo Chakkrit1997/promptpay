@@ -4,6 +4,7 @@
   "description": "",
   "main": "ppqr.js",
   "scripts": {
+    "start": "node ppqr.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
