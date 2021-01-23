@@ -50,7 +50,7 @@ client.on('message', function (topic, message, packet) {
     // message is Buffer
     if (topic == "/NodeMCU/cost") {
         var date = Date();
-        console.log("ได้รับข้อความจาก "+topic + "นะ");
+        console.log("=ได้รับข้อความจาก "+topic );
         var amount = parseInt(message.toString());
         console.log("ราคา "+amount+ " บาท วันที่ "+date) ;
         //console.log(typeof({amount}));
