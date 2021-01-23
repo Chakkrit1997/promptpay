@@ -8,15 +8,15 @@ const mobileNumber = '095-908-7752'
 //const payload = generatePayload(mobileNumber, { amount }) //First parameter : mobileNumber || IDCardNumber
 //console.log(payload)
 
-/*
+
 // Convert to SVG QR Code
-const options = { type: 'svg', color: { dark: '#000', light: '#fff' } }
-qrcode.toString(payload, options, (err, svg) => {
-    if (err) return console.log(err)
-    fs.writeFileSync('./qr.svg', svg)
-    console.log(svg)
-})
-*/
+// const options = { type: 'svg', color: { dark: '#000', light: '#fff' } }
+// qrcode.toString(payload, options, (err, svg) => {
+//     if (err) return console.log(err)
+//     fs.writeFileSync('./qr.svg', svg)
+//     console.log(svg)
+// })
+
 
 
 var mqtt = require('mqtt');
@@ -48,15 +48,16 @@ client.on('connect', function () {
 client.on('message', function (topic, message, packet) {
 
     // message is Buffer
-    //if (topic == "/NodeMCU/cost") {
-    console.log(topic);
-    var amount = parseInt(message.toString());
-    console.log(amount);
-    //console.log(typeof({amount}));
-    let payload = generatePayload(mobileNumber, { amount })
-    console.log(payload);
-    client.publish("/server/qrtext", payload);
-    //}
+    if (topic == "/NodeMCU/cost") {
+        var date = Date();
+        console.log("ได้รับข้อความจาก "+topic);
+        var amount = parseInt(message.toString());
+        console.log("ราคา "+amount+ " บาท วันที่ "+date) ;
+        //console.log(typeof({amount}));
+        let payload = generatePayload(mobileNumber, { amount })
+        console.log(payload);
+        client.publish("/server/qrtext", payload);
+    }
 
 });
 
@@ -66,5 +67,5 @@ client.on('message', function (topic, message, packet) {
 
 
 
-var dateeee = new Date();
-console.log(dateeee);
+//var dateeee = new Date();
+//console.log(dateeee);
