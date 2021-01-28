@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "10.x"
+  },
   "name": "promptpay",
   "version": "1.0.0",
   "description": "",
@@ -13,4 +16,6 @@
     "mqtt": "^4.2.1",
     "promptpay-qr": "^0.4.4"
   }
+
+  
 }
